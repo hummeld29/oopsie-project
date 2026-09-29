@@ -1,16 +1,15 @@
 from main_robot import Robot
+from typing import Literal
+from pydantic import BaseModel, ValidationError
 
-
-class RobotArm(Robot):
-    def __init__(self, name, battery_percent, cost, dof, task, gripper_type, object_to_grab):
+class Robot_dog(Robot):
+    def __init__(self, name, battery_percent, cost, dof, task, size: Literal["small", "medium", "large", "extra_large"]  ):
         super().__init__(name, battery_percent, cost, dof, task)
-        self._gripper_type = gripper_type
-        self._object_to_grab = object_to_grab
-    def get_gripper_type(self):
-        return self._gripper_type
-
-    def get_object_to_grab(self):
-        return self._object_to_grab
-    def do_task(self):
-        print(f"{self._name} is performing task: {self._task} with {self._gripper_type} to grab {self._object_to_grab}")
-       
+        self._size = size
+    def get_size(self):
+        return self._size
+    def set_size(self, size):
+        if size not in ["small", "medium", "large", "extra_large"]:
+            raise ValueError("Size must be 'small', 'medium', 'large', or 'extra_large'")
+        self._size = size
+    
