@@ -1,3 +1,6 @@
+
+from random import random
+
 from robot_car import Robotcar
 from robot_arm import Robot_dog
 
@@ -35,4 +38,43 @@ class Robot:
 
 
 def main():
-    pass
+    while True:
+        bank_acount = random.randint(10000, 100000)
+        print(f"1. buy a Robotcar price is:{el_robo.get_cost()}")
+        print(f"2. buy a Robot_dog price is:{el_robo_dogo.get_cost()}")
+        print(f"3. buy a premium Robotcar price is:{el_robo.get_cost()}")
+        print(f"4. wait for paycheck")
+        print(f"5. Exit")
+        print(f"Your bank account balance is: {bank_acount}")
+        choice = input("Enter your choice 1, 2, 3, 4, or 5: ")
+
+        if choice == "1":
+            bank_acount -= el_robo.get_cost()
+            el_robo = Robotcar("", 100, 5000, 6, "driving")
+            el_robo.set_name(input("what would you like to name your car? "))
+            el_robo.set_passenger_name(input("what would you like to name your passenger? "))
+            if input("would you like to set a destination? (y/n) ") == "y":
+                el_robo.set_destination(input("what would you like to set your destination to? "))
+                el_robo.do_task()
+        elif choice == "2":
+            if bank_acount < el_robo_dogo.get_cost():
+                print("You don't have enough money to buy this robot.")
+            else:
+                bank_acount -= el_robo_dogo.get_cost()
+                el_robo_dogo = Robot_dog("", 100, 5000, 6, "playing")
+                el_robo_dogo.set_name(input("what would you like to name your robo dog? "))
+                el_robo_dogo.set_size(input("what size would you like your robot? "))
+                if bank_acount < el_robo_dogo.training_cost():
+                    print("You don't have enough money to train this robot.")
+                else:
+                    el_robo_dogo.set_training(input("what training would you like your robot to have? "))
+                el_robo_dogo.do_task()
+        elif choice == "4":
+            bank_acount += random.randint(1000, 50000)
+        elif choice == "5":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
