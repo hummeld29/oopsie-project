@@ -3,7 +3,7 @@ from random import random
 
 from robot_car import Robotcar
 from robot_arm import Robot_dog
-
+from robo_cleaner import cleaner
 
 class Robot:
     def __init__(self, name, battery_percent, cost, dof, task):
@@ -43,10 +43,11 @@ def main():
         print(f"1. buy a Robotcar price is:{el_robo.get_cost()}")
         print(f"2. buy a Robot_dog price is:{el_robo_dogo.get_cost()}")
         print(f"3. buy a premium Robotcar price is:{el_robo.get_cost()}")
-        print(f"4. wait for paycheck")
-        print(f"5. Exit")
+        print(f"4. buy a cleaner")
+        print(f"5. wait for paycheck")
+        print(f"6. Exit")
         print(f"Your bank account balance is: {bank_acount}")
-        choice = input("Enter your choice 1, 2, 3, 4, or 5: ")
+        choice = input("Enter your choice 1, 2, 3, 4, 5, or 6: ")
 
         if choice == "1":
             bank_acount -= el_robo.get_cost()
@@ -56,6 +57,10 @@ def main():
             if input("would you like to set a destination? (y/n) ") == "y":
                 el_robo.set_destination(input("what would you like to set your destination to? "))
                 el_robo.do_task()
+                if input(f"would you like your car to drive right now? (y/n) ") == "y":
+                    el_robo.do_task()
+                else:
+                    break
         elif choice == "2":
             if bank_acount < el_robo_dogo.get_cost():
                 print("You don't have enough money to buy this robot.")
@@ -65,14 +70,28 @@ def main():
                 el_robo_dogo.set_name(input("what would you like to name your robo dog? "))
                 el_robo_dogo.set_size(input("what size would you like your robot? "))
                 if bank_acount < el_robo_dogo.training_cost():
-                    print("You don't have enough money to train this robot.")
+                    print(f"You don't have enough money to train this robot.")
+                    if input(f"would you like your dog to play? (y/n) ") == "y":
+                        el_robo_dogo.do_task()
                 else:
-                    el_robo_dogo.set_training(input("what training would you like your robot to have? "))
-                el_robo_dogo.do_task()
+                    if input("would you like your robot to have training? it costs {training_cost} ") == "y":
+                        el_robo_dogo.set_training(True)
+                        if el_robo_dogo.get_training() == True:
+
+                            el_robo_dogo.do_task()
         elif choice == "4":
-            bank_acount += random.randint(1000, 50000)
+                el_robo_cleaner.set_cleaner_type(input("what type of cleaner would you like? The options are 'basic' for 500, 'fast' for 1000, or 'large' for 2000: "))
+                if input(f"would you like to buy a premium cleaner? (y/n) ") == "y":
+                    el_robo_cleaner.set_premium(True)
+                bank_acount -= el_robo_cleaner.get_cost()
+                el_robo_cleaner = cleaner("", 100, 5000, 6, "cleaning")
+                el_robo_cleaner.set_name(input("what would you like to name your cleaner? "))
+                el_robo_cleaner.set_clean_area(input("what area would you like your cleaner to clean? "))
+                if input(f"would you like your cleaner to clean right now? (y/n) ") == "y":
+                    el_robo_cleaner.do_task()
+
         elif choice == "5":
-            break
+            bank_acount += random.randint(1000, 50000)   
         else:
             print("Invalid choice. Please try again.")
 
