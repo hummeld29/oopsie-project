@@ -1,10 +1,11 @@
-from random import random
+import random
 from typing import Literal
 from main_robot import Robot
+from main_robot import Battery
 
 class cleaner(Robot):
-    def __init__(self, name, battery_percent, cost, task, clean_area, premium_cleaner, clean_software_quality, cleaner_type: Literal["basic", "fast", "large"]):
-        super().__init__(name, battery_percent, cost, task)
+    def __init__(self, name,battery: Battery , cost, task, clean_area, premium_cleaner, clean_software_quality, cleaner_type: Literal["basic", "fast", "large"]):
+        super().__init__(name, battery, cost, task)
         self._clean_area = clean_area
         self._premium = premium_cleaner
         self._clean_software_quality = clean_software_quality
@@ -47,7 +48,8 @@ class cleaner(Robot):
 
     def do_task(self):
         self.get_battery()
-        if self.get_battery() < 20:
+        self.battery.battery_drain(20)
+        if self.get_battery() < 10:
             print(f"{self._name} has blown up due to low battery")
         else:
             print(f"{self._name} is cleaning the area: {self._clean_area}")
@@ -55,4 +57,4 @@ class cleaner(Robot):
                 print(f"{self._name} has finished cleaning but now has been lit on fire: {self._clean_area}")
             if random.randint(1, 10) >= 80:
                 print(f"{self._name} has finished cleaning: {self._clean_area}")
-            self.set_battery(self.get_battery() - 20)
+            self.get_battery()
