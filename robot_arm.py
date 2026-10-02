@@ -4,6 +4,13 @@ import random
 from main_robot import Battery
 
 class Robot_dog(Robot):
+"""
+This classs creates a robot dog.
+It inherites ____ from Robot.
+It does ____
+
+"""
+
     def __init__(self, name, battery: Battery, cost, dof, task, size: Literal["small", "medium", "large", "extra_large"], training=None, training_cost=0 ):
         super().__init__(name, battery, cost, dof, task)
         self._size = size
