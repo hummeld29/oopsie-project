@@ -3,6 +3,12 @@ from main_robot import Battery
 from main_robot import Robot
 
 class RobotCar(Robot):
+"""
+This classs creates robot cars to be used in the main loop.
+It inherits ____ from Robot.
+
+
+"""
     def __init__(self, name, battery: Battery, cost, max_speed, task, passenger_name, destination, premium):
         super().__init__(name, battery, cost, max_speed, task)
         self._max_speed = max_speed
