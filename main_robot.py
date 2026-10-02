@@ -1,6 +1,11 @@
 
 import random
 class Battery:
+"""
+This class acts as a battery to get used by every othehr class. 
+It has multiple functions which are used to draiinteh battery, set the battery percent, and get the battery percent. 
+These functions are used so that the battery can accuratley drain battery and track the battery for the  other classes.
+"""    
     def __init__(self, battery_percent):
         self._battery_percent = battery_percent
     def get_battery_percent(self):
@@ -23,6 +28,11 @@ class Battery:
 
 
 class Robot:
+"""
+
+
+
+""" 
     def __init__(self, name, battery: Battery, cost, dof, task):
         self._name = name
         self._battery = battery
@@ -60,6 +70,10 @@ def main():
     from robo_cleaner import cleaner
 
     while True:
+    """
+
+
+    """
         bank_acount = random.randint(10000, 100000)
         print(f"1. buy a Robotcar price is:{el_robo.get_cost()}")
         print(f"2. buy a Robot_dog price is:")
