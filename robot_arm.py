@@ -1,11 +1,11 @@
 from main_robot import Robot
 from typing import Literal
-from pydantic import BaseModel, ValidationError
-from random import random
+import random
+from main_robot import Battery
 
 class Robot_dog(Robot):
-    def __init__(self, name, battery_percent, cost, dof, task, size: Literal["small", "medium", "large", "extra_large"], training=None, training_cost=0 ):
-        super().__init__(name, battery_percent, cost, dof, task)
+    def __init__(self, name, battery: Battery, cost, dof, task, size: Literal["small", "medium", "large", "extra_large"], training=None, training_cost=0 ):
+        super().__init__(name, battery, cost, dof, task)
         self._size = size
         self._training = training
         self._training_cost = training_cost
