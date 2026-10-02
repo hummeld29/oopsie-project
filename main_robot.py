@@ -77,10 +77,12 @@ def main():
         bank_acount = random.randint(10000, 100000)
         print(f"1. buy a Robotcar price is:{el_robo.get_cost()}")
         print(f"2. buy a Robot_dog price is:")
-        print(f"3. buy a premium Robotcar price is:{el_robo.get_cost()}")
-        print(f"4. buy a cleaner")
-        print(f"5. wait for paycheck")
-        print(f"6. Exit")
+        print(f"3. buy a cleaner")
+        Print(f"4 use your bad quality car")
+        Print(f"5 play with your bad quality rob_dog")
+        Print(f"6 use your bad quality cleaner")
+        print(f"7. wait for paycheck")
+        print(f"8. Exit")
         print(f"Your bank account balance is: {bank_acount}")
         choice = input("Enter your choice 1, 2, 3, 4, 5, or 6: ")
 
@@ -95,7 +97,9 @@ def main():
                 if input(f"would you like your car to drive right now? (y/n) ") == "y":
                     el_robo.do_task()
                 else:
-                    break
+                   if input(f"would you like to exit or go buy more stuff (y/n):"):
+                       bank_account += random.randint(1000, 50000)
+                       continue
         elif choice == "2":
             if bank_acount < el_robo_dogo.get_cost():
                 print("You don't have enough money to buy this robot.")
@@ -125,10 +129,14 @@ def main():
                 if input(f"would you like your cleaner to clean right now? (y/n) ") == "y":
                     el_robo_cleaner.do_task()
 
-        elif choice == "4":
-            bank_acount += random.randint(1000, 50000)   
+        elif choice == "7":
+            bank_acount += random.randint(1000, 50000)
+        elif choice == "8":
+            break
         else:
             print("Invalid choice. Please try again.")
+            continue
+            
 
 if __name__ == "__main__":
     main()
