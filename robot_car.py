@@ -1,10 +1,10 @@
-from random import random
-
+import random
+from main_robot import Battery
 from main_robot import Robot
 
 class RobotCar(Robot):
-    def __init__(self, name, battery_percent, cost, max_speed, task, passenger_name, destination, premium):
-        super().__init__(name, battery_percent, cost, max_speed, task)
+    def __init__(self, name, battery: Battery, cost, max_speed, task, passenger_name, destination, premium):
+        super().__init__(name, battery, cost, max_speed, task)
         self._max_speed = max_speed
         self._passenger_name = passenger_name
         self._destination = destination
