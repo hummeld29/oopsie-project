@@ -4,6 +4,12 @@ from main_robot import Robot
 from main_robot import Battery
 
 class cleaner(Robot):
+"""
+This class makes a cleaner robot taht is used in teh main loop. 
+It inherites _____ from the robot class.
+
+"""
+    
     def __init__(self, name,battery: Battery , cost, task, clean_area, premium_cleaner, clean_software_quality, cleaner_type: Literal["basic", "fast", "large"]):
         super().__init__(name, battery, cost, task)
         self._clean_area = clean_area
