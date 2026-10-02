@@ -1,14 +1,31 @@
 
-from random import random
+import random
+class Battery:
+    def __init__(self, battery_percent):
+        self._battery_percent = battery_percent
+    def get_battery_percent(self):
+        return self._battery_percent
+        
+    def set_battery_percent(self, battery_percent):
+        if battery_percent < 0 or battery_percent > 100:
+            raise ValueError("Battery percent cannot be above 100 or below 0")
+        self._battery_percent = battery_percent
 
-from robot_car import Robotcar
-from robot_arm import Robot_dog
-from robo_cleaner import cleaner
+    def battery_drain(self, drain_percent):
+        if drain_percent < 0 or drain_percent > 100:
+            raise ValueError("Drain percent cannot be above 100 or below 0")
+        self._battery_percent -= drain_percent
+        if self._battery_percent < 0:
+            self._battery_percent = 0
+            print("battery has blown up due to low battery")
+
+
+
 
 class Robot:
-    def __init__(self, name, battery_percent, cost, dof, task):
+    def __init__(self, name, battery: Battery, cost, dof, task):
         self._name = name
-        self._battery_percent = battery_percent
+        self._battery = battery
         self._cost = cost
         self._dof = dof
         self._task = task
@@ -17,7 +34,7 @@ class Robot:
         return self._task
 
     def get_battery(self):
-        return self._battery_percent
+        return self._battery.get_battery_percent()
 
     def get_dof(self):
         return self._dof if self._dof >= 0 else None
@@ -38,10 +55,14 @@ class Robot:
 
 
 def main():
+    from robot_car import RobotCar
+    from robot_arm import Robot_dog
+    from robo_cleaner import cleaner
+
     while True:
         bank_acount = random.randint(10000, 100000)
         print(f"1. buy a Robotcar price is:{el_robo.get_cost()}")
-        print(f"2. buy a Robot_dog price is:{el_robo_dogo.get_cost()}")
+        print(f"2. buy a Robot_dog price is:")
         print(f"3. buy a premium Robotcar price is:{el_robo.get_cost()}")
         print(f"4. buy a cleaner")
         print(f"5. wait for paycheck")
@@ -51,7 +72,7 @@ def main():
 
         if choice == "1":
             bank_acount -= el_robo.get_cost()
-            el_robo = Robotcar("", 100, 5000, 6, "driving")
+            el_robo = RobotCar("", 100, 5000, 6, "driving")
             el_robo.set_name(input("what would you like to name your car? "))
             el_robo.set_passenger_name(input("what would you like to name your passenger? "))
             if input("would you like to set a destination? (y/n) ") == "y":
@@ -79,7 +100,7 @@ def main():
                         if el_robo_dogo.get_training() == True:
 
                             el_robo_dogo.do_task()
-        elif choice == "4":
+        elif choice == "3":
                 el_robo_cleaner.set_cleaner_type(input("what type of cleaner would you like? The options are 'basic' for 500, 'fast' for 1000, or 'large' for 2000: "))
                 if input(f"would you like to buy a premium cleaner? (y/n) ") == "y":
                     el_robo_cleaner.set_premium(True)
@@ -90,7 +111,7 @@ def main():
                 if input(f"would you like your cleaner to clean right now? (y/n) ") == "y":
                     el_robo_cleaner.do_task()
 
-        elif choice == "5":
+        elif choice == "4":
             bank_acount += random.randint(1000, 50000)   
         else:
             print("Invalid choice. Please try again.")
