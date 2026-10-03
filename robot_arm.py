@@ -4,11 +4,11 @@ import random
 from main_robot import Battery
 
 class Robot_dog(Robot):
-"""
+    """
 This classs creates a robot dog.
-It inherites ____ from Robot.
-It does ____
-
+This class inherits name, battery, cost, dof, and task attributes from the Robot class.
+It has additional attributes for size, training, and training cost.
+It has functions to get and set these attributes, as well as a function to perform its task.
 """
 
     def __init__(self, name, battery: Battery, cost, dof, task, size: Literal["small", "medium", "large", "extra_large"], training=None, training_cost=0 ):
@@ -49,14 +49,33 @@ It does ____
             self._cost = 30000
 
     def do_task(self):
+        import random
+
         print(f"{self._name} is playing with its {self._size} body.")
-        if random.randint(1,100) == 1and self._training == None:
-            print(f"{self._name} has gotten hit by a car.")
-            if random.randint(1,100) < 50:
-                print(f"{self._name} is fine.")
-            elif random.randint(1,100) > 50:
-                print(f"{self._name} is broken.")
-        if random.randint(1, 100) >= 80 and self._training == None:
-            print(f"{self._name} has gotten into an accident with its self")
+        self._battery.battery_drain(20)
+        if self.get_battery() < 10:
+            print(f"{self._name} has sadly blown up due to low battery")
+            return
+        if not self._training: 
+            
+            roll = random.randint(1, 100)      
+            if roll == 1:
+                print(f"{self._name} has gotten hit by a car.")
+            
+                survival_roll = random.randint(1, 100)
+                if survival_roll <= 50:
+                    print(f"{self._name} is fine.")
+                else:
+                    print(f"{self._name} is broken.")
+                    
+            elif roll >= 80:
+                # 4. Connected with 'elif' so it doesn't happen at the same time as the car
+                print(f"{self._name} has gotten into an accident with itself.")
+                
+            else:
+                # If neither bad event happens, it plays safely
+                print(f"{self._name} is safely playing with its {self._size} body.")
+                
         else:
+            # If the dog is trained, it bypasses the accidents entirely
             print(f"{self._name} is safely playing with its {self._size} body.")
