@@ -3,11 +3,11 @@ from main_robot import Battery
 from main_robot import Robot
 
 class RobotCar(Robot):
-"""
+    """
 This classs creates robot cars to be used in the main loop.
-It inherits ____ from Robot.
-
-
+It inherits name, battery, cost, dof, and task attributes from the Robot class.
+It has extra attributes for max_speed, passenger_name, destination, and premium.
+It has functions to get and set these attributes, as well as a function to perform its task.
 """
     def __init__(self, name, battery: Battery, cost, max_speed, task, passenger_name, destination, premium):
         super().__init__(name, battery, cost, max_speed, task)
@@ -39,16 +39,29 @@ It inherits ____ from Robot.
 
     def do_task(self):
         print(f"{self._name} is driving at maximum speed: {self._max_speed}")
-        if random.randint(1, 100) >= 80 and self._premium == None:
-            print(f"{self._name} has crashed into a tree at speed: {self._max_speed}")
+        
+        self._battery.battery_drain(20)
+        if self.get_battery() < 10:
+            print(f"{self._name} has blown up due to low battery")
+            return
+        if not self._premium:
+        
             if random.randint(1, 100) >= 80:
-                print(f"{self._passenger_name} has died in the crash")
-            elif random.randint(1, 100) <= 20:
-                print(f"{self._passenger_name} has been mutilated in the crash")
-            elif random.randint(1, 100) == 21 :
-                print(f"{self._passenger_name} has recived cancer from the litium batteries in the car.")
+                print(f"{self._name} has crashed into a tree at speed: {self._max_speed}")
+                
+                injury_roll = random.randint(1, 100)
+                
+                if injury_roll >= 80:
+                    print(f"{self._passenger_name} has oofed in the crash")
+                elif injury_roll <= 20:
+                    print(f"{self._passenger_name} has been badly hurt in the crash")
+                elif injury_roll == 21:
+                    print(f"{self._passenger_name} has received disease from the lithium batteries in the car.")
+                else:
+                    print(f"{self._passenger_name} is safe after the crash")
+                    
             else:
-                print(f"{self._passenger_name} is safe after the crash")
+                print(f"{self._name} has safely arrived at your destination: {self._destination}") 
         else:
             print(f"{self._name} has safely arrived at your destination: {self._destination}")
         
